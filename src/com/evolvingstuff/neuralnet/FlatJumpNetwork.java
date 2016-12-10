@@ -9,13 +9,14 @@ public class FlatJumpNetwork implements ISupervised {
 	
 	private List<Layer> layers = new ArrayList<Layer>();
 	private Layer readout;
-	private Random r;
-	private int input_dimension;
-	private int output_dimension;
-	private int hidden_per_layer;
-	private Neuron neuron;
-	private double init_weight_range;
-	private double learning_rate;
+	//mmaguero final disponibility
+	final private Random r;
+	final private int input_dimension;
+	final private int output_dimension;
+	final private int hidden_per_layer;
+	final private Neuron neuron;
+	final private double init_weight_range;
+	final private double learning_rate;
 	
 	/////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////
@@ -53,12 +54,14 @@ public class FlatJumpNetwork implements ISupervised {
 	}
 
 	public double[] Next(double[] input, double[] target_output) throws Exception {
-		double[] extended_input = new double[input.length];
-		for (int i = 0; i < input.length; i++) {
+		int len = input.length; //mmaguero len optimize
+		double[] extended_input = new double[len];
+		for (int i = 0; i < len; i++) {
 			extended_input[i] = input[i];
-		}		
+		}
+		double[] hidden_act; //mmaguero declare outside variable
 		for (Layer layer : layers) {
-			double[] hidden_act = layer.Forward(extended_input);
+			hidden_act = layer.Forward(extended_input);
 			extended_input = util.ConcatVectors(hidden_act, extended_input);
 		}
 		double[] output = readout.Forward(extended_input);

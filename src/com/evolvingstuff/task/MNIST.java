@@ -5,6 +5,10 @@ import java.io.*;
 import com.evolvingstuff.evaluator.*;
 import com.evolvingstuff.neuralnet.ISupervised;
 
+//mmaguero
+import com.evolvingstuff.util.util;
+//
+
 public class MNIST implements IInteractiveEvaluatorSupervised {
 	/*
 	The data is stored in a very simple file format designed for storing vectors and multidimensional matrices. General info on this format is given at the end of this page, but you don't need to read that to use the data files.
@@ -86,21 +90,24 @@ public class MNIST implements IInteractiveEvaluatorSupervised {
 	private double InnerEval(double[] agent_output, double[] input_to_agent, int target_loc) throws Exception {
 		double high = Double.NEGATIVE_INFINITY;
 		int high_loc = -1;
-		for (int i = 0; i < agent_output.length; i++) {
+		int len = agent_output.length;
+		for (int i = 0; i < len; i++) {
 			if (agent_output[i] > high) {
 				high = agent_output[i];
 				high_loc = i;   
 			}
 		}
-		if (high_loc == target_loc) {
+		/*if (high_loc == target_loc) {
 			return 1.0;
 		}
 		else {
 			return 0.0;
-		}
+		}*/
+		return (high_loc == target_loc ? 1.0 : 0.0); //mmaguero optimize if else short
 	}
 	
-	private double EvaluateSampleSupervised(byte[] bimg, byte[] blbl, ISupervised agent, boolean give_target) throws Exception {
+	private double EvaluateSampleSupervised(byte[] bimg, byte[] blbl, ISupervised agent, boolean give_target, 
+			int epoches, boolean validation_mode) throws Exception {//mmaguero add epoches validation_mode
 		double[] input_to_agent = new double[task_observation_dimension];
 		int loc = 0;
 		int k = 0;
@@ -124,7 +131,15 @@ public class MNIST implements IInteractiveEvaluatorSupervised {
 		else {
 			agent_output = agent.Next(input_to_agent);
 		}
-		return InnerEval(agent_output, input_to_agent, target_loc);
+		//mmaguero 
+		double innerEval = InnerEval(agent_output, input_to_agent, target_loc);
+		if(validation_mode){
+			if (innerEval >= 1) 
+				util.WriteTarget(String.valueOf(target_loc), "saved-target/target"+(epoches++)+".int");
+			else util.WriteTarget("-", "saved-target/target"+(epoches++)+".int");
+		}
+		//
+		return innerEval;//mmaguero InnerEval(agent_output, input_to_agent, target_loc);
 	}
 
 	public int GetActionDimension() {
@@ -139,7 +154,7 @@ public class MNIST implements IInteractiveEvaluatorSupervised {
 		validation_mode = validation;
 	}
 
-	public double EvaluateFitnessSupervised(ISupervised agent) throws Exception {
+	public double EvaluateFitnessSupervised(ISupervised agent, int epoches) throws Exception {
 		byte[] bimg = new byte[task_observation_dimension];
 		byte[] blbl = new byte[1];
 		
@@ -168,22 +183,26 @@ public class MNIST implements IInteractiveEvaluatorSupervised {
 		FileInputStream labels = new FileInputStream(path_labels);
 		images.skip(16);
 		labels.skip(8);
+		double fit = 0.0; //mmaguero declare outside loops
+		util.writeLog("0%");//mmaguero
 		for (int n = 0; n < total_examples; n++) {
 			if (n % 1000 == 999) {
 				System.out.print(".");
 			}
 			images.read(bimg);
 			labels.read(blbl);
-			double fit = EvaluateSampleSupervised(bimg, blbl, agent, apply_training);
+			fit = EvaluateSampleSupervised(bimg, blbl, agent, apply_training, epoches, validation_mode); //mmaguero add epoches validation_mode
 			if (fit < 1) {
 				total_errors++;
 			}
 			tot_fit += fit;
 		}
+		util.writeLog("100%");//mmaguero
 		images.close();
 		labels.close();
 		tot_fit /= total_examples;
 		System.out.println("\n"+display+" ERRORS: " + total_errors + " (of "+total_examples+")");
+		util.writeLog("\n"+display+" ERRORS: " + total_errors + " (of "+total_examples+")");//mmaguero
 		return tot_fit;
 	}
 }
