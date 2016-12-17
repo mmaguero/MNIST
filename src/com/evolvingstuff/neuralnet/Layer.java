@@ -2,7 +2,7 @@ package com.evolvingstuff.neuralnet;
 
 import java.util.Random;
 
-public class Layer implements IFeedforwardLayer { 
+final public class Layer implements IFeedforwardLayer { 
 	
 	int input_dimension;
 	int bias_indx;
@@ -24,7 +24,7 @@ public class Layer implements IFeedforwardLayer {
 		this.neuron = neuron;
 		this.learning_rate = learning_rate;
 		double fan_in_factor = 1;
-		fan_in_factor =  1 / Math.sqrt(input_dimension+1);
+		fan_in_factor =  1.0 / Math.sqrt(input_dimension+1);
 		this.learning_rate *= fan_in_factor;
 		bias_indx = input_dimension;
 		weights = new double[output_dimension][input_dimension+1];

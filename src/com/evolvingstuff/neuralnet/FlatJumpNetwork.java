@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Random;
 import com.evolvingstuff.util.util;
 
-public class FlatJumpNetwork implements ISupervised {
+final public class FlatJumpNetwork implements ISupervised {
 	
-	private List<Layer> layers = new ArrayList<Layer>();
-	private Layer readout;
+    private List<Layer> layers = new ArrayList<Layer>();
+    private Layer readout;
 	//mmaguero final disponibility
-	final private Random r;
-	final private int input_dimension;
+    final private Random r;
+    final private int input_dimension;
 	final private int output_dimension;
 	final private int hidden_per_layer;
 	final private Neuron neuron;

@@ -9,7 +9,7 @@ import com.evolvingstuff.neuralnet.ISupervised;
 import com.evolvingstuff.util.util;
 //
 
-public class MNIST implements IInteractiveEvaluatorSupervised {
+final public class MNIST implements IInteractiveEvaluatorSupervised {
 	/*
 	The data is stored in a very simple file format designed for storing vectors and multidimensional matrices. General info on this format is given at the end of this page, but you don't need to read that to use the data files.
 
@@ -184,7 +184,6 @@ public class MNIST implements IInteractiveEvaluatorSupervised {
 		images.skip(16);
 		labels.skip(8);
 		double fit = 0.0; //mmaguero declare outside loops
-		util.writeLog("0%");//mmaguero
 		for (int n = 0; n < total_examples; n++) {
 			if (n % 1000 == 999) {
 				System.out.print(".");
@@ -197,7 +196,6 @@ public class MNIST implements IInteractiveEvaluatorSupervised {
 			}
 			tot_fit += fit;
 		}
-		util.writeLog("100%");//mmaguero
 		images.close();
 		labels.close();
 		tot_fit /= total_examples;

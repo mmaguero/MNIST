@@ -22,16 +22,16 @@ public class App {
 		util.deletedFilesDirectory("saved-target");
 		//
 		
-		final Random r = new Random(5532122);//54324//5532122
+		final Random r = new Random(5532122);//54324
 		final String saved_progress_path = "saved-progress/";
 		final String mnist_data_path = "mnist-data/";
 		final MNIST task = new MNIST(mnist_data_path);
-		final int epoches = 500;//500
-		final int hidden_per_layer = 600;//6000
+		final int epoches = 1;//500
+		final int hidden_per_layer = 784;//6000
 		final double RectifiedLinearNeuronValue = 0.01;//0.01 //mmaguero
 		final Neuron neuron = new RectifiedLinearNeuron(RectifiedLinearNeuronValue);
 		final double init_weight_range = 0.2;//0.2
-		final double learning_rate = 0.2;//0.3
+		final double learning_rate = 0.3;//0.3
 		final FlatJumpNetwork neural_network = new FlatJumpNetwork(r, task.GetObservationDimension(), task.GetActionDimension(), hidden_per_layer, neuron, init_weight_range, learning_rate);
 		
 		//mmaguero	    
@@ -43,7 +43,7 @@ public class App {
 	            "\r\n fan_in_factor: " + 1
 	            );
 	    //
-		final boolean load_initially = true;
+		final boolean load_initially = false;
 		final boolean save_on_improvement = true;
 		
 		if (load_initially) {
