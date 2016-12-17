@@ -26,8 +26,8 @@ public class App {
 		final String saved_progress_path = "saved-progress/";
 		final String mnist_data_path = "mnist-data/";
 		final MNIST task = new MNIST(mnist_data_path);
-		final int epoches = 1;//500
-		final int hidden_per_layer = 784;//6000
+		final int epoches = 500;//500
+		final int hidden_per_layer = 6000;//6000
 		final double RectifiedLinearNeuronValue = 0.01;//0.01 //mmaguero
 		final Neuron neuron = new RectifiedLinearNeuron(RectifiedLinearNeuronValue);
 		final double init_weight_range = 0.2;//0.2

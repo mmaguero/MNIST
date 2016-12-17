@@ -1,1 +1,71 @@
-#
+##################################################################
+MNIST
+Path has archives: saved-target
+Deleted: README.MD
+Deleted: target0.int
+Params => 
+ epoches: 1
+ hidden_per_layer: 784
+ RectifiedLinearNeuronValue: 0.01
+ init_weight_range: 0.2
+ learning_rate: 0.17
+ fan_in_factor: 1
+[datetime Sat Dec 17 13:12:28 CET 2016]:
+[epoch 1]:
+
+TRAIN ERRORS: 4943 (of 60000)
+
+TEST ERRORS: 468 (of 10000)
+Lowest test error so far. Saving (this will overwrite contents of saved-progress/ folder.)
+util.MatrixToFile: 784x785 -> saved-progress/hidden.mtrx
+util.MatrixToFile: 10x1569 -> saved-progress/readout.mtrx
+lowest test error @ epoch 1
+
+
+done. Sat Dec 17 13:17:20 CET 2016
+#################################################################
+MNIST
+Params => 
+ epoches: 1
+ hidden_per_layer: 784
+ RectifiedLinearNeuronValue: 0.01
+ init_weight_range: 0.2
+ learning_rate: 0.3
+ fan_in_factor: 1
+[datetime Sat Dec 17 13:17:49 CET 2016]:
+[epoch 1]:
+
+TRAIN ERRORS: 4914 (of 60000)
+
+TEST ERRORS: 425 (of 10000)
+Lowest test error so far. Saving (this will overwrite contents of saved-progress/ folder.)
+util.MatrixToFile: 784x785 -> saved-progress/hidden.mtrx
+util.MatrixToFile: 10x1569 -> saved-progress/readout.mtrx
+lowest test error @ epoch 1
+
+
+done. Sat Dec 17 13:23:03 CET 2016
+#################################################################
+MNIST
+Path has archives: saved-target
+Deleted: target0.int
+Params => 
+ epoches: 1
+ hidden_per_layer: 784
+ RectifiedLinearNeuronValue: 0.01
+ init_weight_range: 0.2
+ learning_rate: 0.35
+ fan_in_factor: 1
+[datetime Sat Dec 17 13:23:12 CET 2016]:
+[epoch 1]:
+
+TRAIN ERRORS: 5178 (of 60000)
+
+TEST ERRORS: 417 (of 10000)
+Lowest test error so far. Saving (this will overwrite contents of saved-progress/ folder.)
+util.MatrixToFile: 784x785 -> saved-progress/hidden.mtrx
+util.MatrixToFile: 10x1569 -> saved-progress/readout.mtrx
+lowest test error @ epoch 1
+
+
+done. Sat Dec 17 13:28:20 CET 2016
